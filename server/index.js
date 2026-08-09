@@ -1,9 +1,7 @@
+// EMS/server/index.js
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
 import authRouter from './routes/auth.js';
 import departmentRouter from './routes/department.js';
 import employeeRouter from './routes/employee.js';
@@ -11,31 +9,30 @@ import salaryRouter from './routes/salary.js';
 import leaveRouter from './routes/leave.js';
 import settingRouter from './routes/setting.js';
 import connectToDatabase from './db/db.js';
+import userRegister from './userSeed.js';
 
 dotenv.config();
-connectToDatabase();
+
+connectToDatabase().then(() => {
+    userRegister();
+});
 
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-// Dynamic CORS for production
-const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:5173'];
+// Configure CORS to explicitly allow your Vercel origin
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('CORS Policy Violation'));
-        }
-    },
-    credentials: true
+    origin: [
+        "https://employee-management-system-drab-kappa.vercel.app",
+        "http://localhost:5173",
+        "http://localhost:3000"
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());
-
-// Serve uploaded profile images
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use(express.static('public/uploads'));
 
 // API Routes
 app.use('/api/auth', authRouter);
@@ -48,5 +45,5 @@ app.use('/api/setting', settingRouter);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Production Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
