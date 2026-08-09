@@ -13,6 +13,8 @@ const AuthContext = ({ children }) => {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
+                    const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+                    
                     const response = await axios.get('http://localhost:5000/api/auth/verify', {
                         headers: {
                             "Authorization": `Bearer ${token}`
