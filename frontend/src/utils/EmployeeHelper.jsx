@@ -2,6 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from './api';
 
 export const columns = [
     {
@@ -41,7 +42,7 @@ export const columns = [
 export const fetchDepartments = async () => {
     let departments = [];
     try {
-        const response = await axios.get('http://localhost:5000/api/department', {
+        const response = await axios.get(`${API_BASE_URL}/department`, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token')}`
             }
