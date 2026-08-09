@@ -1,6 +1,7 @@
 // EMS/frontend/src/context/authContext.jsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../utils/api';
 
 const userContext = createContext();
 
@@ -13,9 +14,7 @@ const AuthContext = ({ children }) => {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
-                    const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
-                    
-                    const response = await axios.get('http://localhost:5000/api/auth/verify', {
+                    const response = await axios.get(`${API_BASE_URL}/auth/verify`, {
                         headers: {
                             "Authorization": `Bearer ${token}`
                         }
