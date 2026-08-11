@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../context/authContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../utils/api';
 
 const Setting = () => {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Setting = () => {
         }
 
         try {
-            const response = await axios.put('http://localhost:5000/api/setting/change-password', setting, {
+            const response = await axios.put(`${API_BASE_URL}/setting/change-password`, setting, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
