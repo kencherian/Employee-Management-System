@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../../utils/api';
 
 const EmployeeLeaveList = () => {
     const [leaves, setLeaves] = useState([]);
@@ -10,7 +11,7 @@ const EmployeeLeaveList = () => {
     useEffect(() => {
         const fetchLeaves = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/leave/${id}`, {
+                const response = await axios.get(`${API_BASE_URL}/leave/${id}`, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     }

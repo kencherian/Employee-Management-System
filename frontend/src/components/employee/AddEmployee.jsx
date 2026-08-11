@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchDepartments } from '../../utils/EmployeeHelper';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../utils/api';
 
 const AddEmployee = () => {
     const [departments, setDepartments] = useState([]);
@@ -34,7 +35,7 @@ const AddEmployee = () => {
         });
 
         try {
-            const response = await axios.post('http://localhost:5000/api/employee/add', formDataObj, {
+            const response = await axios.post(`${API_BASE_URL}/employee/add`, formDataObj, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
@@ -54,27 +55,22 @@ const AddEmployee = () => {
             <h2 className="text-2xl font-bold mb-6">Add New Employee</h2>
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Name */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Name</label>
                         <input type="text" name="name" onChange={handleChange} placeholder="Insert Name" className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />
                     </div>
-                    {/* Email */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Email</label>
                         <input type="email" name="email" onChange={handleChange} placeholder="Insert Email" className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />
                     </div>
-                    {/* Employee ID */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Employee ID</label>
                         <input type="text" name="employeeId" onChange={handleChange} placeholder="Employee ID" className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />
                     </div>
-                    {/* DOB */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
                         <input type="date" name="dob" onChange={handleChange} className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />
                     </div>
-                    {/* Gender */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Gender</label>
                         <select name="gender" onChange={handleChange} className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required>
@@ -84,7 +80,6 @@ const AddEmployee = () => {
                             <option value="other">Other</option>
                         </select>
                     </div>
-                    {/* Marital Status */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Marital Status</label>
                         <select name="maritalStatus" onChange={handleChange} className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required>
@@ -93,12 +88,10 @@ const AddEmployee = () => {
                             <option value="married">Married</option>
                         </select>
                     </div>
-                    {/* Designation */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Designation</label>
                         <input type="text" name="designation" onChange={handleChange} placeholder="Designation" className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />
                     </div>
-                    {/* Department */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Department</label>
                         <select name="department" onChange={handleChange} className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required>
@@ -108,17 +101,14 @@ const AddEmployee = () => {
                             ))}
                         </select>
                     </div>
-                    {/* Salary */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Salary</label>
                         <input type="number" name="salary" onChange={handleChange} placeholder="Salary" className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />
                     </div>
-                    {/* Password */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Password</label>
                         <input type="password" name="password" onChange={handleChange} placeholder="******" className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />
                     </div>
-                    {/* Role */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Role</label>
                         <select name="role" onChange={handleChange} className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required>
@@ -127,7 +117,6 @@ const AddEmployee = () => {
                             <option value="employee">Employee</option>
                         </select>
                     </div>
-                    {/* Image */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Upload Image</label>
                         <input type="file" name="image" onChange={handleChange} accept="image/*" className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />

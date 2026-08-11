@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchDepartments } from '../../utils/EmployeeHelper';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../utils/api';
 
 const AddSalary = () => {
     const [salary, setSalary] = useState({
@@ -27,7 +28,7 @@ const AddSalary = () => {
     const handleDepartment = async (e) => {
         const depId = e.target.value;
         try {
-            const response = await axios.get(`http://localhost:5000/api/employee/department/${depId}`, {
+            const response = await axios.get(`${API_BASE_URL}/employee/department/${depId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
@@ -50,7 +51,7 @@ const AddSalary = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/salary/add', salary, {
+            const response = await axios.post(`${API_BASE_URL}/salary/add`, salary, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
@@ -70,7 +71,6 @@ const AddSalary = () => {
             <h2 className="text-2xl font-bold mb-6">Add Salary</h2>
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Department */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Department</label>
                         <select onChange={handleDepartment} className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required>
@@ -81,7 +81,6 @@ const AddSalary = () => {
                         </select>
                     </div>
 
-                    {/* Employee */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Employee</label>
                         <select name="employeeId" onChange={handleChange} className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required>
@@ -94,25 +93,21 @@ const AddSalary = () => {
                         </select>
                     </div>
 
-                    {/* Basic Salary */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Basic Salary</label>
                         <input type="number" name="basicSalary" onChange={handleChange} placeholder="Basic Salary" className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />
                     </div>
 
-                    {/* Allowances */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Allowances</label>
                         <input type="number" name="allowances" onChange={handleChange} placeholder="Allowances" className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />
                     </div>
 
-                    {/* Deductions */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Deductions</label>
                         <input type="number" name="deductions" onChange={handleChange} placeholder="Deductions" className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />
                     </div>
 
-                    {/* Pay Date */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Pay Date</label>
                         <input type="date" name="payDate" onChange={handleChange} className="mt-1 p-2 block w-full border border-gray-300 rounded-md text-black" required />

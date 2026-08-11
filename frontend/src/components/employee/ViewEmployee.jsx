@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../../utils/api';
 
 const ViewEmployee = () => {
     const { id } = useParams();
@@ -10,7 +11,7 @@ const ViewEmployee = () => {
     useEffect(() => {
         const fetchEmployee = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/employee/${id}`, {
+                const response = await axios.get(`${API_BASE_URL}/employee/${id}`, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     }
@@ -27,6 +28,8 @@ const ViewEmployee = () => {
         fetchEmployee();
     }, [id]);
 
+    const serverHost = API_BASE_URL.replace('/api', '');
+
     return (
         <>
             {employee ? (
@@ -35,7 +38,7 @@ const ViewEmployee = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <img 
-                                src={`http://localhost:5000/${employee.userId?.profileImage}`} 
+                                src={`${serverHost}/${employee.userId?.profileImage}`} 
                                 className="rounded-full w-72 h-72 object-cover border"
                                 alt="Profile"
                             />

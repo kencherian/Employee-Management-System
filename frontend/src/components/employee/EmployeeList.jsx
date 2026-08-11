@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
 import { columns, EmployeeButtons } from '../../utils/EmployeeHelper';
 import axios from 'axios';
+import { API_BASE_URL } from '../../utils/api';
 
 const EmployeeList = () => {
     const [employees, setEmployees] = useState([]);
@@ -14,13 +15,14 @@ const EmployeeList = () => {
         const fetchEmployees = async () => {
             setEmpLoading(true);
             try {
-                const response = await axios.get('http://localhost:5000/api/employee', {
+                const response = await axios.get(`${API_BASE_URL}/employee`, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     }
                 });
                 if (response.data.success) {
                     let sno = 1;
+                    const serverHost = API_BASE_URL.replace('/api', '');
                     const data = response.data.employees.map((emp) => ({
                         _id: emp._id,
                         sno: sno++,
@@ -31,7 +33,7 @@ const EmployeeList = () => {
                             <img 
                                 width={40} 
                                 className="rounded-full h-10 w-10 object-cover" 
-                                src={`http://localhost:5000/${emp.userId?.profileImage}`} 
+                                src={`${serverHost}/${emp.userId?.profileImage}`} 
                                 alt={emp.userId?.name}
                             />
                         ),

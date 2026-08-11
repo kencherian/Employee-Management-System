@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../../utils/api';
 
 const LeaveDetail = () => {
     const { id } = useParams();
@@ -11,7 +12,7 @@ const LeaveDetail = () => {
     useEffect(() => {
         const fetchLeave = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/leave/detail/${id}`, {
+                const response = await axios.get(`${API_BASE_URL}/leave/detail/${id}`, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem('token')}`
                     }
@@ -30,7 +31,7 @@ const LeaveDetail = () => {
 
     const changeStatus = async (status) => {
         try {
-            const response = await axios.put(`http://localhost:5000/api/leave/${id}`, { status }, {
+            const response = await axios.put(`${API_BASE_URL}/leave/${id}`, { status }, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
@@ -45,6 +46,8 @@ const LeaveDetail = () => {
         }
     };
 
+    const serverHost = API_BASE_URL.replace('/api', '');
+
     return (
         <>
             {leave ? (
@@ -53,7 +56,7 @@ const LeaveDetail = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <img 
-                                src={`http://localhost:5000/${leave.employeeId?.userId?.profileImage}`} 
+                                src={`${serverHost}/${leave.employeeId?.userId?.profileImage}`} 
                                 className="rounded-full w-72 h-72 object-cover border"
                                 alt="Profile"
                             />

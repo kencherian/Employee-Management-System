@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../utils/api';
 
 const LeaveList = () => {
     const [leaves, setLeaves] = useState(null);
@@ -10,7 +11,7 @@ const LeaveList = () => {
 
     const fetchLeaves = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/leave', {
+            const response = await axios.get(`${API_BASE_URL}/leave`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
