@@ -1,4 +1,3 @@
-// EMS/server/index.js
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -14,6 +13,7 @@ import userRegister from './userSeed.js';
 import cookieParser from 'cookie-parser';
 import cookieParser from 'cookie-parser';
 import { generateCsrfToken, verifyCsrfToken } from './middleware/csrfMiddleware.js';
+import uploadRouter from './routes/upload.js';
 
 dotenv.config();
 
@@ -52,6 +52,7 @@ app.use('/api/salary', salaryRouter);
 app.use('/api/leave', leaveRouter);
 app.use('/api/setting', settingRouter);
 app.use('/api/dashboard', dashboardRouter);
+app.use('/api/upload', uploadRouter);
 
 const PORT = process.env.PORT || 5000;
 
