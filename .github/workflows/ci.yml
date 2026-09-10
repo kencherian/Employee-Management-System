@@ -31,4 +31,4 @@ jobs:
 
     - name: Run Unit Tests
       working-directory: ./frontend
-      run: npx vitest run --environment jsdom
+      run: npx vitest run --environment happy-dom
