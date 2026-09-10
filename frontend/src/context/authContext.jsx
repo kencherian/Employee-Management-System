@@ -11,26 +11,15 @@ const AuthContext = ({ children }) => {
 
     useEffect(() => {
         const verifyUser = async () => {
-            const token = localStorage.getItem('token');
-            if (token) {
-                try {
-                    const response = await axios.get(`${API_BASE_URL}/auth/verify`, {
-                        headers: {
-                            "Authorization": `Bearer ${token}`
-                        }
-                    });
-                    if (response.data.success) {
-                        setUser(response.data.user);
-                    }
-                } catch (error) {
-                    if (error.response && !error.response.data.error) {
-                        setUser(null);
-                    }
-                } finally {
-                    setLoading(false);
+            try {
+                // No need to manually attach a token header; the cookie handles it implicitly
+                const response = await axios.get(`${API_BASE_URL}/auth/verify`);
+                if (response.data.success) {
+                    setUser(response.data.user);
                 }
-            } else {
+            } catch (error) {
                 setUser(null);
+            } finally {
                 setLoading(false);
             }
         };
@@ -41,9 +30,15 @@ const AuthContext = ({ children }) => {
         setUser(user);
     };
 
-    const logout = () => {
+    const logout = async () => {
+        try {
+            // Call the backend to clear the secure cookie
+            await axios.post(`${API_BASE_URL}/auth/logout`);
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
         setUser(null);
-        localStorage.removeItem("token");
+        // REMOVED: localStorage.removeItem("token");
     };
 
     return (
