@@ -11,6 +11,7 @@ import settingRouter from './routes/setting.js';
 import dashboardRouter from './routes/dashboard.js';
 import connectToDatabase from './db/db.js';
 import userRegister from './userSeed.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('public/uploads'));
 
 // API Routes

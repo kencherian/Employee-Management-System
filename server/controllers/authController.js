@@ -7,24 +7,23 @@ const login = async (req, res) => {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
         
-        if (!user) {
-            return res.status(404).json({ success: false, error: "User Not Found" });
-        }
+        if (!user) return res.status(404).json({ success: false, error: "User Not Found" });
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(404).json({ success: false, error: "Wrong Password" });
-        }
+        if (!isMatch) return res.status(404).json({ success: false, error: "Wrong Password" });
 
-        const token = jwt.sign(
-            { _id: user._id, role: user.role },
-            process.env.JWT_KEY,
-            { expiresIn: "10d" }
-        );
+        const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_KEY, { expiresIn: "10d" });
+
+        // Secure Cookie Issuance
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 10 * 24 * 60 * 60 * 1000 // 10 days
+        });
 
         return res.status(200).json({
             success: true,
-            token,
             user: { _id: user._id, name: user.name, role: user.role },
         });
     } catch (error) {
@@ -36,4 +35,13 @@ const verify = (req, res) => {
     return res.status(200).json({ success: true, user: req.user });
 };
 
-export { login, verify };
+const logout = (req, res) => {
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict'
+    });
+    return res.status(200).json({ success: true, message: "Logged out" });
+};
+
+export { login, verify, logout };
