@@ -22,7 +22,6 @@ const EmployeeList = () => {
                 });
                 if (response.data.success) {
                     let sno = 1;
-                    const serverHost = API_BASE_URL.replace('/api', '');
                     const data = response.data.employees.map((emp) => ({
                         _id: emp._id,
                         sno: sno++,

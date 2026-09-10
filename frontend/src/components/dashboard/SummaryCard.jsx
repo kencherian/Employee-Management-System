@@ -1,6 +1,3 @@
-// EMS/frontend/src/components/dashboard/SummaryCard.jsx
-import React from 'react';
-
 const SummaryCard = ({ icon, text, number, color }) => {
     return (
         <div className="rounded flex bg-white border shadow-sm">

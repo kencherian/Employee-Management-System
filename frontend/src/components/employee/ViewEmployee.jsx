@@ -28,8 +28,6 @@ const ViewEmployee = () => {
         fetchEmployee();
     }, [id]);
 
-    const serverHost = API_BASE_URL.replace('/api', '');
-
     return (
         <>
             {employee ? (
