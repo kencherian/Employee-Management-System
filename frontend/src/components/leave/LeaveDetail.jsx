@@ -56,9 +56,13 @@ const LeaveDetail = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <img 
-                                src={`${serverHost}/${leave.employeeId?.userId?.profileImage}`} 
-                                className="rounded-full w-72 h-72 object-cover border"
-                                alt="Profile"
+                                src={
+                                    leave?.employeeId?.userId?.profileImage?.startsWith('http') 
+                                    ? leave.employeeId.userId.profileImage 
+                                    : `http://localhost:5000/${leave?.employeeId?.userId?.profileImage}`
+                                } 
+                                alt="Profile" 
+                                className="w-24 h-24 rounded-full"
                             />
                         </div>
                         <div>

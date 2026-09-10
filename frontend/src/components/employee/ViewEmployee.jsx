@@ -38,9 +38,13 @@ const ViewEmployee = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <img 
-                                src={`${serverHost}/${employee.userId?.profileImage}`} 
-                                className="rounded-full w-72 h-72 object-cover border"
-                                alt="Profile"
+                                src={
+                                    employee.userId?.profileImage?.startsWith('http') 
+                                    ? employee.userId.profileImage 
+                                    : `http://localhost:5000/${employee.userId?.profileImage}`
+                                } 
+                                alt="Profile" 
+                                className="w-32 h-32 rounded-full border-4 border-white shadow-lg"
                             />
                         </div>
                         <div>

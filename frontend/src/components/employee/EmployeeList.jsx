@@ -31,10 +31,13 @@ const EmployeeList = () => {
                         dob: emp.dob ? new Date(emp.dob).toLocaleDateString() : "N/A",
                         profileImage: (
                             <img 
-                                width={40} 
-                                className="rounded-full h-10 w-10 object-cover" 
-                                src={`${serverHost}/${emp.userId?.profileImage}`} 
-                                alt={emp.userId?.name}
+                                src={
+                                    emp.userId?.profileImage?.startsWith('http') 
+                                    ? emp.userId.profileImage 
+                                    : `http://localhost:5000/${emp.userId?.profileImage}`
+                                } 
+                                alt="Profile" 
+                                className="w-10 h-10 rounded-full"
                             />
                         ),
                         action: (<EmployeeButtons _id={emp._id} />)

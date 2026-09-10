@@ -28,15 +28,12 @@ const addEmployee = async (req, res) => {
 
         const hashPassword = await bcrypt.hash(password, 10);
 
-        // Fallback: Use multer if present, otherwise use the cloud URL from req.body
-        const profileImage = req.file ? req.file.filename : (req.body.profileImage || "");
-
         const newUser = new User({
             name,
             email,
             password: hashPassword,
             role,
-            profileImage
+            profileImage: req.body.profileImage || ""
         });
         const savedUser = await newUser.save();
 

@@ -42,8 +42,6 @@ app.use(cookieParser());
 app.use(generateCsrfToken);
 app.use(verifyCsrfToken);
 
-app.use(express.static('public/uploads'));
-
 // API Routes
 app.use('/api/auth', authRouter);
 app.use('/api/department', departmentRouter);
