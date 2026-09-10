@@ -12,6 +12,8 @@ import dashboardRouter from './routes/dashboard.js';
 import connectToDatabase from './db/db.js';
 import userRegister from './userSeed.js';
 import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
+import { generateCsrfToken, verifyCsrfToken } from './middleware/csrfMiddleware.js';
 
 dotenv.config();
 
@@ -30,11 +32,16 @@ app.use(cors({
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    allowedHeaders: ["Content-Type", "Authorization", "x-xsrf-token"]
 }));
 
 app.use(express.json());
 app.use(cookieParser());
+
+// Apply CSRF Protection Globally
+app.use(generateCsrfToken);
+app.use(verifyCsrfToken);
+
 app.use(express.static('public/uploads'));
 
 // API Routes
