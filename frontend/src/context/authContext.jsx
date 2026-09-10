@@ -1,5 +1,4 @@
-// EMS/frontend/src/context/authContext.jsx
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../utils/api';
 

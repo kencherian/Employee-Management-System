@@ -1,5 +1,5 @@
 // EMS/frontend/src/components/leave/AddLeave.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../../context/authContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';

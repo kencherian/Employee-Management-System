@@ -1,5 +1,3 @@
-// EMS/frontend/src/components/EmployeeDashboard/EmployeeSidebar.jsx
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaCalendarAlt, FaCogs, FaMoneyBillWave, FaTachometerAlt, FaUser } from 'react-icons/fa';
 import { useAuth } from '../../context/authContext';

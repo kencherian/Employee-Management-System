@@ -1,5 +1,3 @@
-// EMS/frontend/src/pages/AdminDashboard.jsx
-import React from 'react';
 import { useAuth } from '../context/authContext';
 import AdminSidebar from '../components/dashboard/AdminSidebar';
 import Navbar from '../components/dashboard/Navbar';

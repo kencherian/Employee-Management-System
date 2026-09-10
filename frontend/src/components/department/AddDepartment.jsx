@@ -1,5 +1,5 @@
 // EMS/frontend/src/components/department/AddDepartment.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL } from '../../utils/api';

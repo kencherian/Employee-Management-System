@@ -17,11 +17,11 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
-    // ADD THE RULES BLOCK HERE
     rules: {
       'no-unused-vars': 'warn',
       'react-refresh/only-export-components': 'warn',
-      'react-hooks/exhaustive-deps': 'warn'
+      'react-hooks/exhaustive-deps': 'warn',
+      'react-hooks/set-state-in-effect': 'warn'
     },
   },
 ])

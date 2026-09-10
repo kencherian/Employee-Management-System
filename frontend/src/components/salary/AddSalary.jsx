@@ -1,5 +1,5 @@
 // EMS/frontend/src/components/salary/AddSalary.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchDepartments } from '../../utils/EmployeeHelper';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';

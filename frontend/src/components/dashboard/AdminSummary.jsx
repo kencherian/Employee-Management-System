@@ -1,5 +1,4 @@
-// EMS/frontend/src/components/dashboard/AdminSummary.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SummaryCard from './SummaryCard';
 import { FaBuilding, FaCheckCircle, FaFileAlt, FaHourglassHalf, FaMoneyBillWave, FaTimesCircle, FaUsers } from 'react-icons/fa';
 import axios from 'axios';

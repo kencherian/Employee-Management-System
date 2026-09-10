@@ -1,5 +1,3 @@
-// EMS/frontend/src/components/dashboard/AdminSidebar.jsx
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
     FaBuilding, 

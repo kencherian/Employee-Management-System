@@ -1,5 +1,3 @@
-// EMS/frontend/src/pages/EmployeeDashboard.jsx
-import React from 'react';
 import EmployeeSidebar from '../components/EmployeeDashboard/EmployeeSidebar';
 import Navbar from '../components/dashboard/Navbar';
 import { Outlet } from 'react-router-dom';

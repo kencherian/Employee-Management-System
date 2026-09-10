@@ -1,5 +1,4 @@
-// EMS/frontend/src/components/EmployeeDashboard/EmployeeSummary.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaUser, FaCheckCircle, FaHourglassHalf, FaTimesCircle, FaCalendarAlt } from 'react-icons/fa';
 import { useAuth } from '../../context/authContext';
 import axios from 'axios';

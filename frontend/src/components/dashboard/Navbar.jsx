@@ -1,5 +1,3 @@
-// EMS/frontend/src/components/dashboard/Navbar.jsx
-import React from 'react';
 import { useAuth } from '../../context/authContext';
 
 const Navbar = () => {

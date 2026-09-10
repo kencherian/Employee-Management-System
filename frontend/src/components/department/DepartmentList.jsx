@@ -1,5 +1,5 @@
 // EMS/frontend/src/components/department/DepartmentList.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
 import { columns, DepartmentButtons } from '../../utils/DepartmentHelper';
