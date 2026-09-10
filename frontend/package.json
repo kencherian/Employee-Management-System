@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "autoprefixer": "^10.5.4",
     "axios": "^1.19.0",
+    "cookie-parser": "^1.4.7",
     "postcss": "^8.5.25",
     "react": "^19.2.8",
     "react-data-table-component": "^8.8.0",

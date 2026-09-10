@@ -29,17 +29,29 @@ const AddEmployee = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formDataObj = new FormData();
-        Object.keys(formData).forEach((key) => {
-            formDataObj.append(key, formData[key]);
-        });
+        
+        let finalImageUrl = "";
 
         try {
-            const response = await axios.post(`${API_BASE_URL}/employee/add`, formDataObj, {
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+            // Step 1: Direct-to-Cloud Upload if an image is selected
+            if (formData.image) {
+                const urlRes = await axios.get(`${API_BASE_URL}/upload/presigned-url?fileType=${formData.image.type}`);
+                
+                if (urlRes.data.success) {
+                    // PUT the file directly to S3 using the presigned URL
+                    await axios.put(urlRes.data.uploadUrl, formData.image, {
+                        headers: { 'Content-Type': formData.image.type }
+                    });
+                    finalImageUrl = urlRes.data.imageUrl;
                 }
-            });
+            }
+
+            // Step 2: Submit employee data to your backend as JSON
+            const payload = { ...formData, profileImage: finalImageUrl };
+            delete payload.image; // Remove the raw File object
+
+            const response = await axios.post(`${API_BASE_URL}/employee/add`, payload);
+            
             if (response.data.success) {
                 navigate("/admin-dashboard/employees");
             }
