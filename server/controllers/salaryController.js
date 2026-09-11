@@ -1,4 +1,3 @@
-// EMS/server/controllers/salaryController.js
 import Salary from '../models/Salary.js';
 import mongoose from 'mongoose';
 
