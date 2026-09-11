@@ -1,13 +1,16 @@
 // EMS/server/controllers/salaryController.js
 import Salary from '../models/Salary.js';
-import Employee from '../models/Employee.js';
+import mongoose from 'mongoose';
 
-// Add Salary Record
 const addSalary = async (req, res) => {
+    // 1. Initialize the session and start the transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
     try {
         const { employeeId, basicSalary, allowances, deductions, payDate } = req.body;
 
-        const totalSalary = parseInt(basicSalary) + parseInt(allowances || 0) - parseInt(deductions || 0);
+        const totalSalary = parseInt(basicSalary) + parseInt(allowances) - parseInt(deductions);
 
         const newSalary = new Salary({
             employeeId,
@@ -18,10 +21,26 @@ const addSalary = async (req, res) => {
             payDate
         });
 
-        await newSalary.save();
-        return res.status(200).json({ success: true, message: "Salary added successfully" });
+        // 2. Pass the session into the save operation
+        await newSalary.save({ session });
+
+        // (Future scalability: Any additional DB updates, like writing to a company financial ledger 
+        // or updating a payroll audit log, would go here and also receive the { session } parameter).
+
+        // 3. Commit the transaction if all operations succeed
+        await session.commitTransaction();
+        return res.status(200).json({ success: true, message: "Salary processed successfully." });
+
     } catch (error) {
-        return res.status(500).json({ success: false, error: "Add salary server error: " + error.message });
+        // 4. Rollback all changes if ANY operation in the block fails
+        await session.abortTransaction();
+        return res.status(500).json({ 
+            success: false, 
+            error: "Payroll operation failed. Transaction safely rolled back." 
+        });
+    } finally {
+        // 5. Always end the session to prevent memory leaks
+        session.endSession();
     }
 };
 
